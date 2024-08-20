@@ -1,0 +1,6 @@
+name: 'Multiple Options Field'
+type: module
+description: 'Provides a custom field type for selecting multiple options with conditional select lists.'
+core_version_requirement: ^9 || ^10
+package: Custom
+version: 1.0.0
