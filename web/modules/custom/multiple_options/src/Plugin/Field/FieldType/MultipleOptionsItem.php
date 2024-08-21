@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\multiple_options_field\Plugin\Field\FieldType;
+namespace Drupal\multiple_options\Plugin\Field\FieldType;
 
 use Drupal\Core\Field\FieldItemBase;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
@@ -17,52 +17,66 @@ use Drupal\Core\TypedData\DataDefinition;
  *   default_formatter = "multiple_options_formatter"
  * )
  */
-class MultipleOptionsItem extends FieldItemBase {
-  /**
-   * {@inheritdoc}
-   */
-  public static function schema(FieldStorageDefinitionInterface $field_definition) {
-    return [
-      'columns' => [
-        'value' => [
-          'type' => 'text',
-          'size' => 'normal',
-          'not null' => FALSE,
-        ],
-      ],
-    ];
-  }
+class MultipleOptionsItem extends FieldItemBase
+{
 
     /**
-   * {@inheritdoc}
-   */
-  public function isEmpty() {
-    $value = $this->get('options')->getValue();
-    return empty($value);
-  }
+     * {@inheritdoc}
+     */
+    public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition)
+    {
+        $properties['value'] = DataDefinition::create('string')
+            ->setLabel(t('Serialized Options'))
+            ->setRequired(FALSE);
 
-  /**
-   * {@inheritdoc}
-   */
-  public function setValue($values, $notify = TRUE) {
-    $this->set('options', $values);
-    parent::setValue($values, $notify);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getValue() {
-    return $this->get('options')->getValue();
-  }
+        return $properties;
+    }
 
     /**
-   * {@inheritdoc}
-   */
-  public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
-    $properties['value'] = DataDefinition::create('string')
-      ->setLabel(t('Serialized Options'));
+     * {@inheritdoc}
+     */
+    public static function schema(FieldStorageDefinitionInterface $field_definition)
+    {
+        return [
+            'columns' => [
+                'value' => [
+                    'type' => 'text',
+                    'size' => 'normal',
+                    'not null' => FALSE,
+                ],
+            ],
+        ];
+    }
 
-    return $properties;
-  }
+    /**
+     * {@inheritdoc}
+     */
+    public function isEmpty()
+    {
+        $value = $this->get('value')->getValue();
+        return $value === NULL || $value === '';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setValue($values, $notify = TRUE)
+    {
+        if (isset($values['value']) && is_array($values['value'])) {
+            $values['value'] = serialize($values['value']);
+        }
+        parent::setValue($values, $notify);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getValue()
+    {
+        $value = parent::getValue();
+        if (isset($value['value']) && is_string($value['value'])) {
+            $value['value'] = unserialize($value['value']);
+        }
+        return $value;
+    }
 }
