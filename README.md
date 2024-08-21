@@ -15,7 +15,7 @@ The **Multiple Options** field module provides a custom field type that allows u
 ## Installation
 
 1. Clone the repository or download the module.
-2. Place the module in the `modules/custom/` directory of your Drupal installation and you can change the number of options from here `/admin/config/content/multiple_options_field`
+2. Place the module in the `modules/custom/` directory of your Drupal installation and you can change the number of options from here `/admin/config/multiple_options/settings`
 3. Enable the module by navigating to **Extend > Custom > Multiple Options Field** or using Drush:
 
    ```bash

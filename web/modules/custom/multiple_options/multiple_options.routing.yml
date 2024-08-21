@@ -1,5 +1,5 @@
 multiple_options_field.settings:
-  path: '/admin/config/content/multiple_options_field'
+  path: '/admin/config/multiple_options/settings'
   defaults:
     _form: '\Drupal\multiple_options\Form\MultipleOptionsSettingsForm'
     _title: 'Multiple Options Field Settings'
