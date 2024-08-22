@@ -29,4 +29,4 @@ you can see video link for the module from here https://www.loom.com/share/32f17
 
 Here are the results of the unit tests for the `MultipleOptionsItem` class:
 
-<img src="web/modules/custom/multiple_options/images/test_results.png" alt="Test Results" width="800">
+<img src="web/modules/custom/multiple_options/images/unit-test.png" alt="Test Results" width="800">
